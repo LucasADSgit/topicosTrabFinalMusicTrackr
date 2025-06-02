@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Área Administrativa</ui:define>
+    <ui:define name="content">
+        <h2>Bem-vindo ao MusicTrackr 🎶</h2>
+        <p>Escolha uma das opções abaixo para gerenciar seu conteúdo:</p>
+        <p:panelGrid columns="1" styleClass="ui-panelgrid-blank" layout="grid" style="width:300px;">
+            <p:button value="🎤 Artistas" icon="pi pi-users" outcome="/admin/artista.xhtml" />
+            <p:button value="🎵 Músicas" icon="pi pi-music" outcome="/admin/musica.xhtml" />
+            <p:button value="📀 Playlists" icon="pi pi-list" outcome="/admin/playlist.xhtml" />
+        </p:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,10 @@
+br\upf\musictrackr\controller\ArtistaController.class
+br\upf\musictrackr\controller\LoginController.class
+br\upf\musictrackr\facade\ArtistaFacade.class
+br\upf\musictrackr\resources\JakartaEE10Resource.class
+br\upf\musictrackr\FiltroAdministrativo.class
+br\upf\musictrackr\entity\ArtistaEntity.class
+br\upf\musictrackr\facade\UsuarioFacade.class
+br\upf\musictrackr\facade\AbstractFacade.class
+br\upf\musictrackr\entity\UsuarioEntity.class
+br\upf\musictrackr\JakartaRestConfiguration.class
