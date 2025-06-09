@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Cadastro de Artistas</ui:define>
+    <ui:define name="content">
+        <h:form id="formCadastro">
+            <p:panel header="Cadastro de Artistas">
+                <p:messages />
+
+                <p:outputLabel for="nome" value="Nome:" />
+                <p:inputText id="nome" value="#{artistaController.entidade.nome}" required="true" />
+                
+                <p:outputLabel for="genero" value="Gênero:" />
+                <p:inputText id="genero" value="#{artistaController.entidade.genero}" />
+
+                <p:outputLabel for="nacionalidade" value="Nacionalidade:" />
+                <p:inputText id="nacionalidade" value="#{artistaController.entidade.nacionalidade}" />
+
+                <p:commandButton value="Salvar" action="#{artistaController.inserir}" update="@form" icon="pi pi-save" />
+            </p:panel>
+        </h:form>
+
+        <h:form id="formLista">
+            <p:panel header="Lista de Artistas">
+                <p:dataTable value="#{artistaController.listarTodos}" var="item">
+                    <p:column headerText="Nome">#{item.nome}</p:column>
+                    <p:column headerText="Gênero">#{item.genero}</p:column>
+                    <p:column headerText="Nacionalidade">#{item.nacionalidade}</p:column>
+                    <p:column headerText="Ações">
+                        <p:commandButton icon="pi pi-pencil" title="Editar"
+                                         actionListener="#{artistaController.prepararEdicao(item)}"
+                                         update=":formEditarArtista"
+                                         oncomplete="PF('dialogEditarArtista').show()" />
+                        <p:commandButton icon="pi pi-trash" title="Excluir"
+                                         action="#{artistaController.excluir(item)}"
+                                         update="@form formLista" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <p:dialog header="Editar Artista" widgetVar="dialogEditarArtista" modal="true" closable="true" resizable="false">
+            <h:form id="formEditarArtista">
+                <p:messages />
+
+                <p:outputLabel for="editNome" value="Nome:" />
+                <p:inputText id="editNome" value="#{artistaController.selecionado.nome}" required="true" />
+
+                <p:outputLabel for="editGenero" value="Gênero:" />
+                <p:inputText id="editGenero" value="#{artistaController.selecionado.genero}" />
+
+                <p:outputLabel for="editNacionalidade" value="Nacionalidade:" />
+                <p:inputText id="editNacionalidade" value="#{artistaController.selecionado.nacionalidade}" />
+
+                <p:commandButton value="Salvar Alterações" action="#{artistaController.alterar}"
+                                 update=":formLista" oncomplete="PF('dialogEditarArtista').hide()" icon="pi pi-check"/>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

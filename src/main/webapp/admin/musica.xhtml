@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Cadastro de Músicas</ui:define>
+    <ui:define name="content">
+        <h:form id="formCadastroMusica">
+            <p:panel header="Cadastro de Músicas">
+                <p:messages />
+
+                <p:outputLabel for="nome" value="Nome:" />
+                <p:inputText id="nome" value="#{musicaController.entidade.nome}" required="true" />
+
+                <p:outputLabel for="artista" value="Artista:" />
+                <p:selectOneMenu id="artista" value="#{musicaController.entidade.artista}" converter="artistaConverter" required="true">
+                    <f:selectItems value="#{musicaController.listaArtistas}" var="a" itemValue="#{a}" itemLabel="#{a.nome}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="album" value="Álbum:" />
+                <p:inputText id="album" value="#{musicaController.entidade.album}" />
+
+                <p:outputLabel for="ano" value="Ano de Lançamento:" />
+                <p:inputText id="ano" value="#{musicaController.entidade.anoLancamento}" />
+
+                <p:commandButton value="Salvar" action="#{musicaController.inserir}" update="@form" icon="pi pi-save" />
+            </p:panel>
+        </h:form>
+
+        <h:form id="formListaMusica">
+            <p:panel header="Lista de Músicas">
+                <p:dataTable value="#{musicaController.listarTodos}" var="item">
+                    <p:column headerText="Nome">#{item.nome}</p:column>
+                    <p:column headerText="Artista">#{item.artista.nome}</p:column>
+                    <p:column headerText="Álbum">#{item.album}</p:column>
+                    <p:column headerText="Ano">#{item.anoLancamento}</p:column>
+                    <p:column headerText="Ações">
+                        <p:commandButton icon="pi pi-pencil" title="Editar"
+                                         actionListener="#{musicaController.prepararEdicao(item)}"
+                                         update=":formEditarMusica"
+                                         oncomplete="PF('dialogEditarMusica').show()" />
+                        <p:commandButton icon="pi pi-trash" title="Excluir"
+                                         action="#{musicaController.excluir(item)}"
+                                         update="@form formListaMusica" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <p:dialog header="Editar Música" widgetVar="dialogEditarMusica" modal="true" closable="true" resizable="false">
+            <h:form id="formEditarMusica">
+                <p:messages />
+
+                <p:outputLabel for="editNome" value="Nome:" />
+                <p:inputText id="editNome" value="#{musicaController.selecionado.nome}" required="true" />
+
+                <p:outputLabel for="editArtista" value="Artista:" />
+                <p:selectOneMenu id="editArtista" value="#{musicaController.selecionado.artista}" converter="artistaConverter" required="true">
+                    <f:selectItems value="#{musicaController.listaArtistas}" var="a" itemValue="#{a}" itemLabel="#{a.nome}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="editAlbum" value="Álbum:" />
+                <p:inputText id="editAlbum" value="#{musicaController.selecionado.album}" />
+
+                <p:outputLabel for="editAno" value="Ano de Lançamento:" />
+                <p:inputText id="editAno" value="#{musicaController.selecionado.anoLancamento}" />
+
+                <p:commandButton value="Salvar Alterações" action="#{musicaController.alterar}" update=":formListaMusica"
+                                 oncomplete="PF('dialogEditarMusica').hide()" icon="pi pi-check" />
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

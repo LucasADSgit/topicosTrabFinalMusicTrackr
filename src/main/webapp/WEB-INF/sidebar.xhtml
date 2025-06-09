@@ -1,0 +1,84 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/manhattan">
+    
+    <style>
+        /* Corrige o fundo da parte superior da sidebar */
+        .layout-sidebar-logo {
+            background: #9575cd !important; /* Roxo da topbar */
+            border-bottom: none !important;
+        }
+
+        /* Corrige botão hamburguer lateral (ícone) */
+        .layout-sidebar-anchor i {
+            color: #ffffff !important;
+        }
+
+        /* Corrige o fundo azul da opção selecionada (como o "Home") */
+        .layout-menu-container .ui-menuitem-link.ui-state-active {
+            background-color: #7e57c2 !important; /* Roxo ativo */
+            border-left: 4px solid #5e35b1 !important;
+            color: #ffffff !important;
+        }
+
+        /* Ícone do item ativo */
+        .layout-menu-container .ui-menuitem-link.ui-state-active .ui-menuitem-icon {
+            color: #ffffff !important;
+        }
+
+        /* Corrige ícone de todos os botões */
+        .layout-menu-container .ui-menuitem-icon {
+            color: #ffffff !important;
+        }
+
+        /* Hover nos botões */
+        .layout-menu-container .ui-menuitem-link:hover {
+            background-color: #af7ac5 !important;
+            color: #ffffff !important;
+        }
+
+        /* Hover no ícone do botão */
+        .layout-menu-container .ui-menuitem-link:hover .ui-menuitem-icon {
+            color: #ffffff !important;
+        }
+        /* Corrige ícones de itens ativos no menu lateral */
+        .layout-menu-container .ui-menuitem-link.ui-state-active .ui-menuitem-icon {
+            color: #ffffff !important;
+        }
+
+        /* E mantém ícones brancos no hover também */
+        .layout-menu-container .ui-menuitem-link:hover .ui-menuitem-icon {
+            color: #ffffff !important;
+        }
+    </style>
+    
+
+    
+    <div class="layout-sidebar">
+        <div class="layout-sidebar-logo">            
+            <a href="#" id="layout-sidebar-anchor" class="layout-sidebar-anchor" title="Toggle Menu">
+                <i class="pi"/>
+            </a>
+        </div>
+
+        <div class="layout-menu-container">
+            <h:form id="menuform">
+                <pm:menu widgetVar="ManhattanMenuWidget">
+                    <p:menuitem id="mnuIndex" value="Home" icon="pi pi-fw pi-home" outcome="/admin/index.xhtml"/>
+                    
+                    <!-- NOVOS BOTÕES -->
+                    <p:menuitem id="mnuArtistas" value="Artistas" icon="pi pi-fw pi-users" outcome="/admin/artista.xhtml" />
+                    <p:menuitem id="mnuMusicas" value="Músicas" icon="pi pi-fw pi-folder-open" outcome="/admin/musica.xhtml" />
+                    <p:menuitem id="mnuPlaylists" value="Playlists" icon="pi pi-fw pi-list" outcome="/admin/playlist.xhtml" />
+                    
+                    <p:menuitem id="mnuSair" value="Sair" action="#{loginController.logout()}" icon="pi pi-fw pi-sign-out"  />
+                </pm:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>
